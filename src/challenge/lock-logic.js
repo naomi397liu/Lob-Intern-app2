@@ -32,8 +32,16 @@ function changeDialValue (index, incrementBy) {
   } else {
     lockState.wheels[index] += incrementBy
   }
-  if (lockState.wheels[0] === SECRET_COMBO[0] & lockState.wheels[1] === SECRET_COMBO[1] &
-    lockState.wheels[2] === SECRET_COMBO[2] & lockState.wheels[3] === SECRET_COMBO[3]) {
+  let j = 0
+  for (const element of lockState.wheels) {
+    if (element !== SECRET_COMBO[j]) {
+      break
+    } else {
+      ++j
+    }
+  }
+  // assumed SECRET COMBO and wheels will always have the same length
+  if (j === SECRET_COMBO.length) {
     lockState.locked = false
     redirect('naomi-liu')
   }
