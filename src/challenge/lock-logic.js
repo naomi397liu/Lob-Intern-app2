@@ -25,6 +25,26 @@ function changeDialValue (index, incrementBy) {
   // call the redirect() function with your name
   // eg: redirect('larry-lobster')
   // the redirect function will only redirect if the lockState is unlocked
+  if (lockState.wheels[index] + incrementBy > 9) {
+    lockState.wheels[index] = 0
+  } else if (lockState.wheels[index] + incrementBy < 0) {
+    lockState.wheels[index] = 9
+  } else {
+    lockState.wheels[index] += incrementBy
+  }
+  let j = 0
+  for (const element of lockState.wheels) {
+    if (element !== SECRET_COMBO[j]) {
+      break
+    } else {
+      ++j
+    }
+  }
+  // assumed SECRET COMBO and wheels will always have the same length
+  if (j === SECRET_COMBO.length) {
+    lockState.locked = false
+    redirect('naomi-liu')
+  }
 }
 
 // let our other modules find our functions
